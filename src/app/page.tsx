@@ -14,14 +14,13 @@ export default function HomePage() {
   const [rating, setRating] = useState<number | null>(null);
   const [author, setAuthor] = useState('');
 
-  // Persist browsing history
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem('browsingHistory') || '[]');
     history.push({ path: '/', timestamp: new Date().toISOString() });
     localStorage.setItem('browsingHistory', JSON.stringify(history));
   }, []);
 
-  // Fetch navigation headings
+  
   const { data: navigationData, isLoading: isLoadingNavigation } = useQuery<Navigation[]>({
     queryKey: ['navigation'],
     queryFn: fetchNavigation,
