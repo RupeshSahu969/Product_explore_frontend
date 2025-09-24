@@ -45,9 +45,11 @@ export default function HomePage() {
     const matchesPrice = p.price >= priceRange[0] && p.price <= priceRange[1];
     const matchesRating = rating
       ? Math.round(
-          (p.reviews?.reduce((sum, r) => sum + r.rating, 0) ?? 0) / (p.reviews?.length || 1)
+          (p.productDetail?.reviews?.reduce((sum, r) => sum + r.rating, 0) ?? 0) /
+            (p.productDetail?.reviews?.length || 1)
         ) >= rating
       : true;
+
     return matchesSearch && matchesAuthor && matchesPrice && matchesRating;
   });
 
@@ -61,8 +63,8 @@ export default function HomePage() {
           value={search}
           onChange={e => setSearch(e.target.value)}
           className="flex-1 min-w-[200px] border rounded-md p-2 focus:ring focus:ring-blue-300"
-          aria-label="Search by product title"
         />
+
         <div className="flex flex-col">
           <label className="text-gray-700 text-sm">Max Price: ${priceRange[1]}</label>
           <input
@@ -72,14 +74,13 @@ export default function HomePage() {
             value={priceRange[1]}
             onChange={e => setPriceRange([0, Number(e.target.value)])}
             className="w-40"
-            aria-label="Filter by price"
           />
         </div>
+
         <select
           value={rating ?? ''}
           onChange={e => setRating(e.target.value ? Number(e.target.value) : null)}
           className="border rounded-md p-2 min-w-[120px]"
-          aria-label="Filter by rating"
         >
           <option value="">All Ratings</option>
           <option value="1">⭐ 1+</option>
@@ -87,16 +88,17 @@ export default function HomePage() {
           <option value="3">⭐ 3+</option>
           <option value="4">⭐ 4+</option>
         </select>
+
         <input
           type="text"
           placeholder="Filter by author..."
           value={author}
           onChange={e => setAuthor(e.target.value)}
           className="border rounded-md p-2 min-w-[180px] focus:ring focus:ring-blue-300"
-          aria-label="Filter by author"
         />
       </div>
 
+      {/* 🔹 Navigation Categories */}
       <div>
         <h2 className="text-2xl font-bold mb-4">Explore Categories</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">

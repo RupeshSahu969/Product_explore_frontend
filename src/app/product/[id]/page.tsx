@@ -5,12 +5,13 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchProductDetail, fetchProductsByCategoryId } from '@/services/api';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import ProductCard from '@/components/ProductCard';
-import type { Product } from '@/types/category';
+import type { Product, Review } from '@/types/category';
 
 export default function ProductDetailPage() {
   const params = useParams() as { id: string };
   const { id } = params;
 
+  // Fetch product detail
   const { data: product, isLoading } = useQuery<Product>({
     queryKey: ['productDetail', id],
     queryFn: () => fetchProductDetail(id),
@@ -18,9 +19,15 @@ export default function ProductDetailPage() {
   });
 
   const categoryId = product?.categoryId;
+
+  // Fetch related products
   const { data: relatedProducts } = useQuery<Product[]>({
     queryKey: ['relatedProducts', categoryId],
-    
+    queryFn: async () => {
+      if (!categoryId) return [];
+      const prods = await fetchProductsByCategoryId(categoryId);
+      return prods.filter((p: Product) => p.id !== id).slice(0, 5);
+    },
     enabled: !!categoryId,
   });
 
@@ -29,6 +36,7 @@ export default function ProductDetailPage() {
 
   return (
     <div className="max-w-7xl mx-auto p-4 space-y-10">
+      {/* Product Main Section */}
       <div className="flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-1/2 flex justify-center">
           <img
@@ -45,7 +53,6 @@ export default function ProductDetailPage() {
           <p className="text-gray-800 text-lg">
             Price: <span className="font-semibold">{product.price} {product.currency}</span>
           </p>
-
           <p className="text-gray-700">{product.productDetail?.description || 'No description available.'}</p>
           <div className="space-y-1 text-gray-600">
             {product.productDetail?.publisher && <p>Publisher: {product.productDetail.publisher}</p>}
@@ -60,7 +67,7 @@ export default function ProductDetailPage() {
         <h2 className="text-2xl font-semibold mb-4">Reviews</h2>
         <div className="space-y-4 max-h-72 overflow-y-auto">
           {product.productDetail?.reviews?.length ? (
-            product.productDetail.reviews.map((r) => (
+            product.productDetail.reviews.map((r: Review) => (
               <div key={r.id} className="border-b pb-2">
                 <p className="font-semibold">{r.author}</p>
                 <p className="text-yellow-500 text-sm">
@@ -76,16 +83,16 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Related Products Section */}
-      {relatedProducts && relatedProducts.length > 0 && (
+      {relatedProducts?.length ? (
         <div>
           <h2 className="text-2xl font-semibold mb-4">Related Products</h2>
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {relatedProducts.map((p) => (
+            {relatedProducts.map((p: Product) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

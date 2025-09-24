@@ -1,4 +1,4 @@
-// category.ts
+// src/types/category.ts
 
 export interface Navigation {
   id: string;
@@ -25,7 +25,7 @@ export interface Product {
   sourceUrl: string;
   categoryId: string;
   sourceId: string;
-  productDetail?: ProductDetail; // Reference to ProductDetail
+  productDetail?: ProductDetail; // Nested details
 }
 
 export interface ProductDetail {
@@ -33,11 +33,11 @@ export interface ProductDetail {
   specs?: Record<string, any>;
   ratingsAvg?: number;
   reviewsCount?: number;
-  reviews?: Review[]; // Add reviews to ProductDetail
-  author?: string;  // Add author
-  publisher?: string; // Add publisher
-  publicationDate?: string; // Add publication date
-  ISBN?: string; // Add ISBN
+  reviews?: Review[]; // Reviews are here
+  author?: string;
+  publisher?: string;
+  publicationDate?: string;
+  ISBN?: string;
 }
 
 export interface Review {
