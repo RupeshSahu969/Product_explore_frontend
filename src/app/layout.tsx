@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
+import "./globals.css" // Changed import path
 import ClientProvider from './ClientProvider';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });

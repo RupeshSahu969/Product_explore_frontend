@@ -2,8 +2,8 @@
 
 import { ReactNode, useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const queryClient = new QueryClient();
 
@@ -18,9 +18,9 @@ export default function ClientProvider({ children }: { children: ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Header />
+      <Header/>
       <main>{children}</main>
-      <Footer />
+      <Footer/>
     </QueryClientProvider>
   );
 }

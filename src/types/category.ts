@@ -30,15 +30,16 @@ export interface Product {
 
 export interface ProductDetail {
   description?: string;
-  specs?: Record<string, any>;
+  specs?: Record<string, string | number | boolean>; // safer type than 'any'
   ratingsAvg?: number;
   reviewsCount?: number;
-  reviews?: Review[]; // Reviews are here
+  reviews?: Review[];
   author?: string;
   publisher?: string;
   publicationDate?: string;
   ISBN?: string;
 }
+
 
 export interface Review {
   id: string;

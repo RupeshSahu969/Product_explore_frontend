@@ -1,8 +1,7 @@
-# netlify.toml
 [build]
   command = "npm run build"
-  # For Next.js + @netlify/plugin-nextjs, publish can be ".next" (plugin will handle server artifacts)
   publish = ".next"
+  functions = "netlify/functions"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

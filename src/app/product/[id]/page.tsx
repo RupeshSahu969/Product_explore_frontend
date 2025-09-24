@@ -6,6 +6,7 @@ import { fetchProductDetail, fetchProductsByCategoryId } from '@/services/api';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import ProductCard from '@/components/ProductCard';
 import type { Product, Review } from '@/types/category';
+import Image from 'next/image';
 
 export default function ProductDetailPage() {
   const params = useParams() as { id: string };
@@ -39,11 +40,13 @@ export default function ProductDetailPage() {
       {/* Product Main Section */}
       <div className="flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-1/2 flex justify-center">
-          <img
-            src={product.imageUrl || '/fallback-image.jpg'}
-            alt={product.title}
-            className="w-full max-w-md h-80 md:h-[450px] object-cover rounded-lg shadow-lg transition-transform transform hover:scale-105 duration-300"
-          />
+          <Image
+  src={product.imageUrl || '/fallback-image.jpg'}
+  alt={product.title}
+  width={450}
+  height={450}
+  className="rounded-lg shadow-lg"
+/>
         </div>
         <div className="w-full md:w-1/2 flex flex-col space-y-4">
           <h1 className="text-3xl md:text-4xl font-bold">{product.title}</h1>
