@@ -1,0 +1,10 @@
+# netlify.toml
+
+[build]
+  publish = "out"  # Directory where Next.js exports the static site
+  command = "next build && next export"  # Build command for Next.js
+
+[[redirects]]
+  from = "/_next/*"
+  to = "/_next/:splat"
+  status = 200
