@@ -1,10 +1,8 @@
 # netlify.toml
-
 [build]
-  publish = "out"  # Directory where Next.js exports the static site
-  command = "next build && next export"  # Build command for Next.js
+  command = "npm run build"
+  # For Next.js + @netlify/plugin-nextjs, publish can be ".next" (plugin will handle server artifacts)
+  publish = ".next"
 
-[[redirects]]
-  from = "/_next/*"
-  to = "/_next/:splat"
-  status = 200
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
