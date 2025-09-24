@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCategoriesByNavigationSlug, fetchProductsByCategoryId } from '@/services/api';
-import ProductCard from '@/components/ProductCard';
-import SkeletonLoader from '@/components/SkeletonLoader';
 import type { Category, Product } from '@/types/category';
+import SkeletonLoader from '@/components/SkeletonLoader';
+import ProductCard from '@/components/ProductCard';
 
 export default function CategoryPage() {
   const [mounted, setMounted] = useState(false);

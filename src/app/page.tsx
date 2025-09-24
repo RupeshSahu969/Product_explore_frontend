@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchNavigation, fetchProducts } from '../services/api';
-import SkeletonLoader from '../components/SkeletonLoader';
 import Link from 'next/link';
-import ProductCard from '../components/ProductCard';
 import { Navigation, Product } from '../types/category';
+import SkeletonLoader from '@/components/SkeletonLoader';
+import ProductCard from '@/components/ProductCard';
 
 export default function HomePage() {
   const [search, setSearch] = useState('');
